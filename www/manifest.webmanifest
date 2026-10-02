@@ -1,0 +1,26 @@
+{
+  "name": "中国象棋 · 人机对战",
+  "short_name": "象棋",
+  "description": "支持简单 / 中度 / 大师三档电脑对手的中国象棋，含完整规则与离线缓存。",
+  "id": "./",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "fullscreen", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#f4f1ea",
+  "theme_color": "#b02a1f",
+  "categories": ["games", "board"],
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "icons": [
+    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "大师难度", "short_name": "大师", "url": "./index.html?level=master" },
+    { "name": "简单难度", "short_name": "简单", "url": "./index.html?level=easy" }
+  ]
+}

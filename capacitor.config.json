@@ -1,0 +1,16 @@
+{
+  "appId": "com.yunke.xiangqi",
+  "appName": "中国象棋",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "loggingBehavior": "none",
+  "android": {
+    "backgroundColor": "#F4F1EA",
+    "allowMixedContent": false,
+    "captureInput": false,
+    "webContentsDebugging": false
+  },
+  "ios": {
+    "contentInset": "always"
+  }
+}
