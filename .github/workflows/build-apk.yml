@@ -26,13 +26,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: 安装 Android SDK 基础组件
-        uses: android-actions/setup-android@v3
-
       - name: 安装 SDK platform 35 / build-tools 35
+        env:
+          ANDROID_HOME: /usr/local/lib/android/sdk
+          ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
         run: |
           yes 2>/dev/null | sdkmanager --licenses >/dev/null 2>&1 || true
-          sdkmanager --install "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+          sdkmanager --install "platform-tools" "platforms;android-35"
+          sdkmanager --install "build-tools;35.0.0" || sdkmanager --install "build-tools;35.0.1"
 
       - name: 安装 npm 依赖
         run: npm install
