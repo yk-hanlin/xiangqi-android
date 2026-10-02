@@ -10,6 +10,9 @@ jobs:
   build:
     name: 编译 APK
     runs-on: ubuntu-latest
+    env:
+      ANDROID_HOME: /usr/local/lib/android/sdk
+      ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
 
     steps:
       - name: 检出代码
@@ -27,10 +30,9 @@ jobs:
           java-version: '17'
 
       - name: 安装 SDK platform 35 / build-tools 35
-        env:
-          ANDROID_HOME: /usr/local/lib/android/sdk
-          ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
         run: |
+          for d in /usr/local/lib/android/sdk/cmdline-tools/*/bin; do export PATH="$PATH:$d"; done
+          command -v sdkmanager || ls /usr/local/lib/android/sdk/cmdline-tools/
           yes 2>/dev/null | sdkmanager --licenses >/dev/null 2>&1 || true
           sdkmanager --install "platform-tools" "platforms;android-35"
           sdkmanager --install "build-tools;35.0.0" || sdkmanager --install "build-tools;35.0.1"
