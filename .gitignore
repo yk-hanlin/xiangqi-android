@@ -2,6 +2,8 @@ node_modules/
 android/
 .capacitor/
 dist/
+*.apk
+*.aab
 *.log
 .DS_Store
 .vscode/

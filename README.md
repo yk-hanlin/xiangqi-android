@@ -27,11 +27,23 @@ git init
 git add .
 git commit -m "中国象棋安卓版"
 git branch -M main
-git remote add origin https://github.com/<你的账号>/xiangqi-android.git
+git remote add origin https://github.com/yk-hanlin/xiangqi-android.git
 git push -u origin main
 ```
 
 > 若 `android/`、`node_modules/` 被误加，`.gitignore` 已排除。
+
+> **本机推送的两个坑（2026-10-02 实测）**
+>
+> 1. 本机到 `github.com` 的连接不稳定（约一半请求被中途掐断），且本地代理对 `github.com` 的 CONNECT 返回 502。推送时需**绕开代理直连**：
+>
+>    ```bash
+>    env -u http_proxy -u https_proxy -u HTTP_PROXY -u HTTPS_PROXY git push origin main
+>    ```
+>
+> 2. 推送 `.github/workflows/` 需要 token 带 `workflow` 权限，只有 `repo` 会被 GitHub 拒绝（报 `refusing to allow an OAuth App to create or update workflow`）。用 `gh auth refresh -h github.com -s workflow` 或改用带 `workflow` 勾选的 Personal Access Token。
+>
+> 仓库已配置好，平时只改 `www/index.html` 的话直接 push 即可（不涉及 workflow 便不需要额外权限）。
 
 ## 二、触发云端构建
 
@@ -44,6 +56,10 @@ git push -u origin main
    git push origin v1.0.0
    ```
    构建完成后 APK 会直接挂到 Release 页面。
+
+云端构建环境（已跑通）：Node 20 + **JDK 21** + SDK platform 35 / build-tools 35。
+注意 JDK 必须是 **21** —— Capacitor 7 的库以 Java 21 为目标，用 17 会在编译时报 `error: invalid source release: 21`。
+另外不要用 `android-actions/setup-android`：新版 cmdline-tools 已移除它要装的 `tools` 包，会直接失败；runner 本身预装了 SDK，只需自己把 `cmdline-tools/*/bin` 加进 PATH。
 
 构建约 3～6 分钟。产物下载位置：
 
